@@ -108,7 +108,7 @@ perl:
    foreground: 268bd2
 # all words like qw(sub for first)
   wxSTC_PL_IDENTIFIER:
-   foreground: 859900
+   foreground: 839496
 # $scalar
   wxSTC_PL_SCALAR:
    foreground: b58900
