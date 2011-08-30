@@ -29,6 +29,7 @@ plain:
    background: eee8d5
    foreground: 93a1a1
   wxSTC_STYLE_BRACELIGHT:
+   foreground: 93a1a1
   wxSTC_STYLE_BRACEBAD:
   wxSTC_STYLE_CONTROLCHAR:
   wxSTC_STYLE_INDENTGUIDE:
@@ -67,7 +68,7 @@ perl:
  colors:
 # highlight two braces
   wxSTC_STYLE_BRACELIGHT:
-   foreground: 073642
+   foreground: 93a1a1
 # ??
   wxSTC_STYLE_BRACEBAD:
    foreground: ff0000
