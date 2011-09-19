@@ -128,7 +128,7 @@ perl:
    foreground: d33682
 # s/// tr///
   wxSTC_PL_REGSUBST:
-   foreground: 93a1a1
+   foreground: 073642
 # ??
   wxSTC_PL_LONGQUOTE:
    foreground: 2aa198
