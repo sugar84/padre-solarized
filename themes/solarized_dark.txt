@@ -1,7 +1,7 @@
 name en-gb Solarized Dark
 
 
-#####
+##### settings
 #
 # base03            002b36
 # base02            073642
@@ -22,7 +22,7 @@ name en-gb Solarized Dark
 # cyan              2aa198
 # green             859900
 #
-#
+##### end settings
 
 
 # Padre GUI Colours

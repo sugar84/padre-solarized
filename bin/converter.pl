@@ -1,51 +1,49 @@
 #!/usr/bin/env perl
 use common::sense;
 
-my $dir = "./themes";
+
+my $dir       = "./themes";
+my $NEW_EXT   = "txt";
+my $LEFT_TAG  = '%';
+my $RIGHT_TAG = '%';
+my $GET_TOKEN = qr/$LEFT_TAG(\w+)$RIGHT_TAG/o;
 
 for my $filename (glob "$dir/*.tmpl") {
-	my $contents = contents( $filename );
+	my $contents = slurp_file( $filename );
+	my $settings = get_settings( $contents );
+	process_template( $contents, $settings );
+	save_file( $filename, $contents );
+}
+
+sub get_settings {
+	my $contents = shift;
 	
+	my $settings = {};
+	for my $line (@$contents) {
+		if ($line =~ /^#+settings/ .. $line =~ /^#+end/) {
+			my ($key, $value) = $line =~ /^#\s+(w+)\s+\(w+)/;
+			$settings->{$key} = $value;
+		}
+	}
+
+	return $settings;
 }
 
-my $comp_templ = compile_template( $template );
+sub process_template {
+	my ($contents, $settings) = @_;
 
-my @content;
-for my $key (keys %$conf) {
-    my $data = $conf->{$key};
-    $data->{'name'}   = $key;
-    $data->{'port'} ||= 22;
-    push @content, do_template( $comp_templ, $data );
+	for my $line (@$contents) {
+		if (my ($token) = $line =~ $GET_TOKEN) {
+			die "no token $token is reperesnted in settings section"
+				unless $settings->{$token};
+			$line =~ s/${LEFT_TAG}$token$RIGHT_TAG/$settings->{$token}/;
+		}
+	}
+ 
+	return;
 }
 
-sub prorcess_template {
-    my ($template, $data) = @_;
-
-    my ($first, $str, $key);
-    my @keys = @{$template->{'keys'}};
-    for my $piece (@{$template->{'pieces'}}) {
-        if (!$first) {
-            $str .= $piece;
-            $first++;
-        }
-        else {
-            $key  = shift @keys;
-            $str .= $data->{$key} . $piece;
-        }
-    }
-    return $str;
-}
-
-sub compile_template {
-    my $template = shift;
-
-    my @pieces = split /<\w+>/, $template;
-    my @keys   = $template =~ /<(\w+)>/g;
-
-    return {pieces => \@pieces, keys => \@keys};
-}
-
-sub contents {
+sub slurp_file {
 	my $fname = shift;
 
 	my @contents = do {
@@ -56,4 +54,15 @@ sub contents {
 	};
 
 	return \@contents;
+}
+
+sub save_file {
+	my ($fname, $contents) = @_;
+
+	$fname =~ s/\.w+$/$NEW_EXT/;
+	open my $fh, ">", $fname
+		or die "cannot save file $fname: $!";
+	print {$fh} @$contents;
+
+	return;
 }
