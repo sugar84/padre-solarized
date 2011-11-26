@@ -1,3 +1,31 @@
 Port of 'solarized' colorscheme to Padre IDE
 
+Description of colors:
+
+Shared colors between Dark and Light:
+yellow    #b58900
+orange    #cb4b16
+red       #dc322f
+magenta   #d33682
+violet    #6c71c4
+blue      #268bd2
+cyan      #2aa198
+green     #859900
+
+Solarized Light:
+base01    #586e75 - optional emphasized text
+base00    #657b83 - body text / primary
+base1     #93a1a1 - comments / secondary
+base2     #eee8d5 - highlighted background
+base3     #fdf6e3 - background
+
+Solarized Dark:
+base1     #93a1a1 - optional emphasized text
+base0     #839496 - body text / primary
+base01    #586e75 - comments / secondary
+base02    #073642 - highlighted background
+base03    #002b36 - background
+
+
+See also:ŗ
 http://ethanschoonover.com/solarized
