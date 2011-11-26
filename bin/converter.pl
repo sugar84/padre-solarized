@@ -20,7 +20,7 @@ sub get_settings {
 	
 	my $settings = {};
 	for my $line (@$contents) {
-		if ($line =~ /^#+settings/ .. $line =~ /^#+end/) {
+		if ($line =~ /^#+\s*settings/ .. $line =~ /^#+\s*end/) {
 			my ($key, $value) = $line =~ /^#\s+(w+)\s+\(w+)/;
 			$settings->{$key} = $value;
 		}
@@ -59,7 +59,7 @@ sub slurp_file {
 sub save_file {
 	my ($fname, $contents) = @_;
 
-	$fname =~ s/\.w+$/$NEW_EXT/;
+	$fname =~ s/\.\w+$/_new.$NEW_EXT/;
 	open my $fh, ">", $fname
 		or die "cannot save file $fname: $!";
 	print {$fh} @$contents;
